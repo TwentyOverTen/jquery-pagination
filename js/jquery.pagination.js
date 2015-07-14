@@ -16,6 +16,7 @@
 			pageSize: 5,
 			currentPage: 1,
 			holder: null,
+			prevNext: true,
 			pagerLocation: 'after'
 		};
 		
@@ -53,7 +54,11 @@
 			}
 			
 			//Build pager navigation
-			var pageNav = '<ul class="pagination"><li class="prev-page inactive"><a rel="1" href="#">Prev Page</a></li>';	
+			var pageNav = '<ul class="pagination">';	
+			// show prev
+			if(options.prevNext) {
+				pageNav += '<li class="prev-page inactive"><a rel="1" href="#">Prev Page</a></li>';
+			}
 			for (i=1;i<=pageCounter;i++){
 				if (i==options.currentPage) {
 					pageNav += '<li class="active pager-'+i+'"><a rel="'+i+'" href="#">'+i+'</a></li>';	
@@ -62,7 +67,11 @@
 					pageNav += '<li class="pager-'+i+'"><a rel="'+i+'" href="#">'+i+'</a></li>';
 				}
 			}
-			pageNav += '<li class="next-page"><a rel="2" href="#">Next Page</a></li></ul>';
+			// show next
+			if(options.prevNext) {
+				pageNav += '<li class="next-page"><a rel="2" href="#">Next Page</a></li>';
+			}
+			pageNav += '</ul>';
 			
 			if(!options.holder) {
 				switch(options.pagerLocation)
@@ -97,14 +106,16 @@
 				options.currentPage = clickedLink;
 				
 				//update prev/next buttons
-				selector.parent().find('.prev-page, .next-page').removeClass('inactive');
-				if(clickedLink == 1) {
-					selector.parent().find('.prev-page').addClass('inactive');
-				} else if (clickedLink == pageCounter) {
-					selector.parent().find('.next-page').addClass('inactive');
+				if(options.prevNext) {
+					selector.parent().find('.prev-page, .next-page').removeClass('inactive');
+					if(clickedLink == 1) {
+						selector.parent().find('.prev-page').addClass('inactive');
+					} else if (clickedLink == pageCounter) {
+						selector.parent().find('.next-page').addClass('inactive');
+					}
+					selector.parent().find('.prev-page a').attr('rel', prevPage);
+					selector.parent().find('.next-page a').attr('rel', nextPage);
 				}
-				selector.parent().find('.prev-page a').attr('rel', prevPage);
-				selector.parent().find('.next-page a').attr('rel', nextPage);
 				
 				if(options.holder) {
 					$(this).parent('li').parent('ul').parent(options.holder).find('li.active').removeClass('active');
