@@ -54,7 +54,7 @@
 			var pageNav = '<ul class="pagination">';	
 			// show prev
 			if(options.prevNext) {
-				pageNav += '<li class="prev-page inactive"><a rel="1" href="#">Prev Page</a></li>';
+				pageNav += '<li class="prev-page disabled"><a rel="1" href="#">Prev Page</a></li>';
 			}
 			for (i=1;i<=pageCounter;i++){
 				if (i==options.currentPage) {
@@ -92,7 +92,7 @@
 			selector.parent().find('.pagination a').on('click', function(e) {
 				e.preventDefault();
 
-				if($(this).parent().hasClass('inactive')) {
+				if($(this).parent().hasClass('disabled')) {
 					return;
 				}
 					
@@ -104,11 +104,11 @@
 				
 				//update prev/next buttons
 				if(options.prevNext) {
-					selector.parent().find('.prev-page, .next-page').removeClass('inactive');
+					selector.parent().find('.prev-page, .next-page').removeClass('disabled');
 					if(clickedLink == 1) {
-						selector.parent().find('.prev-page').addClass('inactive');
+						selector.parent().find('.prev-page').addClass('disabled');
 					} else if (clickedLink == pageCounter) {
-						selector.parent().find('.next-page').addClass('inactive');
+						selector.parent().find('.next-page').addClass('disabled');
 					}
 					selector.parent().find('.prev-page a').attr('rel', prevPage);
 					selector.parent().find('.next-page a').attr('rel', nextPage);
