@@ -15,9 +15,7 @@
 			holder: null,
 			prevNext: true,
 			pagerLocation: 'after',
-			onClick: function() {
-				alert('test');
-			}
+			onClick: function() {}
 		};
 		
 		var options = $.extend(defaults, options);
