@@ -14,7 +14,10 @@
 			currentPage: 1,
 			holder: null,
 			prevNext: true,
-			pagerLocation: 'after'
+			pagerLocation: 'after',
+			onClick: function() {
+				alert('test');
+			}
 		};
 		
 		var options = $.extend(defaults, options);
@@ -128,6 +131,8 @@
 				//hide and show relevant links
 				selector.children().hide();			
 				selector.find('.page-'+clickedLink).show();
+
+				options.onClick.call(this);
 			});
 		});
 	}
